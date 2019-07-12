@@ -1,9 +1,10 @@
-FROM node:10-alpine
+FROM node:10
+
 
 # Install OpenJDK 8
-RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list && \
+RUN echo 'deb http://deb.debian.org/debian stable main' > /etc/apt/sources.list.d/stable.list && \
      apt-get update && \
-     apt-get install -y -t jessie-backports openjdk-8-jre-headless ca-certificates-java
+     apt-get install -y -t stable openjdk-8-jre-headless ca-certificates-java
 
 # Install dependencies
 RUN apt-get install -y gettext-base \
@@ -18,7 +19,7 @@ RUN apt-get install -y gettext-base \
     libcups2 \
     libxss1 \
     libxrandr2 \
-    libgconf2-4 \
+    libgconf-2-4=3.2.6-5 \
     libasound2 \
     libatk1.0-0 \
     libgtk-3-0
@@ -30,4 +31,3 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
     && wget -q -O /usr/bin/xvfb-chrome https://bitbucket.org/atlassian/docker-node-chrome-firefox/raw/ff180e2f16ea8639d4ca4a3abb0017ee23c2836c/scripts/xvfb-chrome \
     && ln -sf /usr/bin/xvfb-chrome /usr/bin/google-chrome \
     && chmod 755 /usr/bin/google-chrome
-
